@@ -12,3 +12,14 @@
 # * 4) Para escritura, el usuario introduce la cantidad de números a ser grabada, 
 # *    seguido por la entrada de todos los números, uno a la vez
 
+# Function to create a csv file with a personalized name
+
+def createFile():
+    fileName = input("Enter the name of the file: ")
+    fileName = fileName + ".csv"
+    file = open(fileName , "w")
+    file.close()
+
+
+if __name__ == "__main__":
+    createFile()
