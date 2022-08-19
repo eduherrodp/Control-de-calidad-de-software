@@ -1,1 +1,1 @@
-# COntrol de calidad de software
+# Control de calidad de software
