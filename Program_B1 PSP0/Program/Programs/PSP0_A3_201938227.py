@@ -10,8 +10,6 @@
 # TODO: de n numeros, se usa una lista ligada para almacenar los n numeros 
 
 import os
-import math
-
 
 # Definition of the class "Node"
 class Node:
@@ -165,6 +163,8 @@ if __name__ == "__main__":
                 list.insert(float(i))
             list.print_list()
             print("The standar deviation of the sample is: ", stdv(list))
-                
-            
+        elif op == 0:
+            print("Bye")
+        else:
+            print("Invalid option")
 # We has gotten the code of PSP0_201938227.py and PSP0_A2_201938227.py

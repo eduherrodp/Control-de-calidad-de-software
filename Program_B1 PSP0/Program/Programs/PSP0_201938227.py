@@ -1,4 +1,4 @@
-    # Program A1. PSP0, Problem 1
+# Program A1. PSP0, Problem 1
 # Programmer: José Eduardo Hernández Rodríguez
 
 # * Program to estimate the mean and standar deviation of a 
@@ -70,8 +70,7 @@ def stdv(list):
     # We calculate the standard deviation
     stdv = (sum / counter)**0.5
     return stdv
-
-            
+    
 if __name__ == "__main__":
     # Create a LinkedList
     list = LinkedList()
