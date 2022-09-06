@@ -52,13 +52,13 @@ if __name__ == "__main__":
     file.read()
 
     # We show the number of comments in the file
-    print("Number of comments: " + str(file.countComments()))
+    # print("Number of comments: " + str(file.countComments()))
 
     # We show the number of blank lines in the file
-    print("Number of blank lines: " + str(file.countBlankLines()))
+    # print("Number of blank lines: " + str(file.countBlankLines()))
 
     # We show the number of code lines in the file
-    print("Number of code lines: " + str(file.countCodeLines()))
+    # print("Number of code lines: " + str(file.countCodeLines()))
 
     # We show the logical lines of code
     print("Logical lines of code: " + str(file.countCodeLines() - file.countComments() - file.countBlankLines()))
