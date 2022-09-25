@@ -29,29 +29,33 @@ class File:
             self.content = file.read()
         return self.content
 
-    # Function to count the numbers of comments in the file
-    def countComments(self) -> int:
+    # Function to count the number of lines of code
+    def countCodeLines(self) -> int:
         # We count the number of comments
-        self.numComments = self.content.count("#")
-        return self.numComments
-    
-    # Function to count the number of lines in blank
-    def countBlankLines(self) -> int:
-        # We count all the lines in blank
-        self.numBlankLines = 0
+        numComments = self.content.count("#")
+        # Count the number of blank lines in the file
+        numBlankLines = 0
         for line in self.content.splitlines():
             if line.strip() == "":
-                self.numBlankLines += 1
-        return self.numBlankLines
+                numBlankLines += 1
 
-    # Function to count the number of lines of code
-    def countCodeLines(self, nC, nB) -> int:
         # We count the number of lines of code
-        self.numCodeLines = self.content.count("\n") +1 - nC - nB
-        self.lines = self.numCodeLines
+        self.numCodeLines = self.content.count("\n") +1 - numComments - numBlankLines
+
         return self.numCodeLines
 
     # Function to count the number of methods in the file
+    def countMethods(self) -> int:
+        # We count the number of methods
+        self.methods = self.content.count("def ")
+        return self.methods
+
+    # Function to count the number of objects in the file
+    def countObjects(self) -> int:
+        # We count the number of objects
+        self.objects = self.content.count("class ")
+        return self.objects
+
 
 if __name__ == "__main__":
     # Verify if the program is executed from the path root
@@ -74,7 +78,10 @@ if __name__ == "__main__":
 
         # We read the file and call all the methods for fill the information of the object
         file.read()
-        file.countCodeLines(file.countComments(), file.countBlankLines())
+        file.countCodeLines()
+        file.countMethods()
+        file.countObjects()
+
         
 
         # Print the information of the object File
