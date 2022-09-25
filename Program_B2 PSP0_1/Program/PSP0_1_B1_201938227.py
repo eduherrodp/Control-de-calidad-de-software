@@ -8,9 +8,41 @@
 # * Also print out the total program LOC count. If an object-oriented laguage is not used, count the procedure and function LOC and print out the procedure and function names and LOC counts.
 # ? Second, your program must indentify modified, deleted, and reused LOC and list them as well when a new version of an existing program is available.
 
-
-# Class File
 import os
+
+# We define the class that will contain the information of the files
+
+class FIle:
+    def __init__(self, name, path, lines, methods):
+        self.name = name
+        self.path = path
+        self.lines = lines
+        self.methods = methods
+
+# We define the function that will count the lines of code of a file
+
+def countLines(file):
+    lines = 0
+    methods = 0
+    with open(file, 'r') as f:
+        for line in f:
+            if line.strip():
+                lines += 1
+                if line.strip().startswith('def'):
+                    methods += 1
+    return lines, methods
+
+# We define the function that will count the lines of code of a directory
+
+def countDirectory(directory):
+    files = []
+    for root, dirs, file in os.walk(directory):
+        for f in file:
+            if f.endswith('.py'):
+                lines, methods = countLines(os.path.join(root, f))
+                files.append(FIle(f, os.path.join(root, f), lines, methods))
+    return files
+
 
 class File:
     def __init__(self) -> None:
