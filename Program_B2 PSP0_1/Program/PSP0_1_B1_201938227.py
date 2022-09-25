@@ -18,10 +18,10 @@ class File:
         self.path = path
         self.methods = 0
         self.objects = 0
-        self.lines = 0
+        self.numCodeLines = 0
 
     def __str__(self) -> str:
-        return f"Name: {self.name}, Path: {self.path}, Methods: {self.methods}, Objects: {self.objects}, Lines: {self.lines}"
+        return f"Name: {self.name}, Path: {self.path}, Methods: {self.methods}, Objects: {self.objects}, Lines: {self.numCodeLines}"
 
     # We define the read function that will read the file
     def read(self) -> str:
@@ -45,20 +45,40 @@ class File:
         return self.numBlankLines
 
     # Function to count the number of lines of code
-    def countCodeLines(self) -> int:
+    def countCodeLines(self, nC, nB) -> int:
         # We count the number of lines of code
-        self.lines = self.content.count("\n") + 1
-        return self.lines
+        self.numCodeLines = self.content.count("\n") +1 - nC - nB
+        self.lines = self.numCodeLines
+        return self.numCodeLines
 
+    # Function to count the number of methods in the file
 
 if __name__ == "__main__":
     # Verify if the program is executed from the path root
-    print(os.getcwd())
     path_root = os.getcwd()
     # Only verify if the path ends with the name of the folder
     if path_root.endswith("\\Program"):
-        print("The program is executed from the path root")
 
+        # First, show the programs in the directory "/Programs"
+        files = os.listdir("Programs")
+        print("The programs in the directory are:")
+        for i in range(len(files)):
+            print(f"[{i}]: "+files[i])
+
+        file_to_open = int(input("Select a file: "))
+        file = File(files[file_to_open], "Programs/"+files[file_to_open])
+        file.name = str(files[file_to_open])
+
+        # Print the information of the object File
+        print("\nInformation before the method call: \n"+file.__str__()+"\n")
+
+        # We read the file and call all the methods for fill the information of the object
+        file.read()
+        file.countCodeLines(file.countComments(), file.countBlankLines())
+        
+
+        # Print the information of the object File
+        print("Information after the method call: \n"+file.__str__()+"\n")
 
     else:
         print("Please execute the program from /Program")
