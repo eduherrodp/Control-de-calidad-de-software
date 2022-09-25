@@ -5,52 +5,27 @@
 # ! First you need to write a program to count the total program LOC, the total LOC in each object. 
 # ! Produce a single LOC count for an entire source program file and separate LOC and method counts for each object. 
 # * Print out each object name together with its LOC and method counts. 
-# * Also print out the total program LOC count. If an object-oriented laguage is not used, count the procedure and function LOC and print out the procedure and function names and LOC counts.
+# * Also print out the total program LOC count. If an object-oriented language is not used, count the procedure and function LOC and print out the procedure and function names and LOC counts.
 # ? Second, your program must indentify modified, deleted, and reused LOC and list them as well when a new version of an existing program is available.
 
 import os
 
 # We define the class that will contain the information of the files
 
-class FIle:
-    def __init__(self, name, path, lines, methods):
+class File:
+    def __init__(self, name, path) -> None:
         self.name = name
         self.path = path
-        self.lines = lines
-        self.methods = methods
+        self.methods = 0
+        self.objects = 0
+        self.lines = 0
 
-# We define the function that will count the lines of code of a file
+    def __str__(self) -> str:
+        return f"Name: {self.name}, Path: {self.path}, Methods: {self.methods}, Objects: {self.objects}, Lines: {self.lines}"
 
-def countLines(file):
-    lines = 0
-    methods = 0
-    with open(file, 'r') as f:
-        for line in f:
-            if line.strip():
-                lines += 1
-                if line.strip().startswith('def'):
-                    methods += 1
-    return lines, methods
-
-# We define the function that will count the lines of code of a directory
-
-def countDirectory(directory):
-    files = []
-    for root, dirs, file in os.walk(directory):
-        for f in file:
-            if f.endswith('.py'):
-                lines, methods = countLines(os.path.join(root, f))
-                files.append(FIle(f, os.path.join(root, f), lines, methods))
-    return files
-
-
-class File:
-    def __init__(self) -> None:
-        self.name = None
-
+    # We define the read function that will read the file
     def read(self) -> str:
-        # We read the file
-        with open("Programs/"+self.name, "r") as file:
+        with open(self.path, "r") as file:
             self.content = file.read()
         return self.content
 
@@ -69,27 +44,22 @@ class File:
                 self.numBlankLines += 1
         return self.numBlankLines
 
-    # Function to count the number of lines with code
+    # Function to count the number of lines of code
     def countCodeLines(self) -> int:
-        # We count the number of lines with code
-        self.numCodeLines = self.content.count("\n") +1
-        return self.numCodeLines
-        
+        # We count the number of lines of code
+        self.lines = self.content.count("\n") + 1
+        return self.lines
+
+
 if __name__ == "__main__":
-    files = os.listdir("Programs")
-    for i in range(len(files)):
-        print(f"[{i}]: "+files[i])
-    print("\n")
-    file_to_open = int(input("Select a file: "))
-    file = File()
-    file.name = str(files[file_to_open])
+    # Verify if the program is executed from the path root
+    print(os.getcwd())
+    path_root = os.getcwd()
+    # Only verify if the path ends with the name of the folder
+    if path_root.endswith("\\Program"):
+        print("The program is executed from the path root")
 
-    # Print the name of the file that we are going to read
 
-    print("Using: " + file.name)
-
-    # We read the file
-    file.read()
-
-    # We show the number of code lines in the file
-    print("Number of code lines: " + str(file.countCodeLines()))
+    else:
+        print("Please execute the program from /Program")
+        exit(1)
