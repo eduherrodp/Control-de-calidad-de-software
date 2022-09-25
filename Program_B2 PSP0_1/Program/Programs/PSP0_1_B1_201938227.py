@@ -53,10 +53,7 @@ class File:
     # Function to count the number of objects in the file
     def countObjects(self) -> int:
         # We count the number of objects
-        # Comparing if the coincidence is the first word of the line
-        for line in self.content.splitlines():
-            if line.strip().startswith("class "):
-                self.objects += 1
+        self.objects = self.content.count("class ")
         return self.objects
 
 # Define the object that will contain the information of the objects
