@@ -47,7 +47,10 @@ class File:
     # Function to count the number of methods in the file
     def countMethods(self) -> int:
         # We count the number of methods
-        self.methods = self.content.count("def ")
+        # Comparing if the coincidence is the first word of the line
+        for line in self.content.splitlines():
+            if line.strip().startswith("def "):
+                self.methods += 1
         return self.methods
 
     # Function to count the number of objects in the file
